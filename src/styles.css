@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #000; /* خلفية سوداء */
+  color: #fff; /* النص أبيض */
+}
+
+/* Optional: إذا عايز الأزرار تكون واضحة على الخلفية السوداء */
+.btn {
+  color: #fff;
+}
+
+/* Optional: Sidebar fix */
+.sidebar {
+  background-color: #111; /* خلفية داكنة للـ sidebar */
+}
