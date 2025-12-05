@@ -8,6 +8,94 @@ import { Chart, registerables } from 'chart.js';
 })
 export class HomeComponent implements AfterViewInit {
 
+  showBudgetModal: boolean = false;
+  showExpenseModal: boolean = false;
+  showIncomeModal: boolean = false;
+  showGoalModal: boolean = false;
+  showReportModal: boolean = false;
+
+
+  budgetIncome: string = '';
+  budgetCategory: string = 'Food'; // Default selection
+  budgetAmount: string = '';
+
+  expenseCategory: string = 'Entertainment'; // Default selection
+  expenseAmount: string = '';
+  expenseDate: string = '';
+
+  newIncomeSource: string = '';
+  newIncomeAmount: string = '';
+
+  incomeList: any[] = [
+    { source: 'Salary', amount: 7000 },
+    { source: 'Freelance', amount: 6 },
+    { source: 'Dividends', amount: 7 }
+  ];
+  lastGoal: string = 'Buy a Car'; // Example static data
+  selectedGoal: string = 'Vacation';
+  
+  openBudgetModal() {
+    this.showBudgetModal = true;
+  }
+
+  closeBudgetModal() {
+    this.showBudgetModal = false;
+  }
+
+  openExpenseModal() {
+    this.showExpenseModal = true;
+  }
+
+  closeExpenseModal() {
+    this.showExpenseModal = false;
+  }
+
+  openIncomeModal() { this.showIncomeModal = true; }
+  closeIncomeModal() { this.showIncomeModal = false; }
+
+  openGoalModal() { this.showGoalModal = true; }
+  closeGoalModal() { this.showGoalModal = false; }
+
+  openReportModal() { this.showReportModal = true; }
+  closeReportModal() { this.showReportModal = false; }
+
+
+  // --- Placeholder methods for Save actions ---
+  saveBudget() {
+    console.log('Budget Saved:', this.budgetIncome, this.budgetCategory, this.budgetAmount);
+    this.closeBudgetModal();
+  }
+
+  addExpense() {
+    console.log('Expense Added:', this.expenseCategory, this.expenseAmount, this.expenseDate);
+    this.closeExpenseModal();
+  }
+
+  addIncomeItem() {
+    if(this.newIncomeSource && this.newIncomeAmount) {
+      this.incomeList.push({
+        source: this.newIncomeSource,
+        amount: this.newIncomeAmount
+      });
+      // Clear inputs
+      this.newIncomeSource = '';
+      this.newIncomeAmount = '';
+    }
+  }
+
+  deleteIncomeItem(index: number) {
+    this.incomeList.splice(index, 1);
+  }
+
+  saveGoal() {
+    this.lastGoal = this.selectedGoal;
+    this.closeGoalModal();
+  }
+
+  printReport() {
+    window.print();
+  }
+
   ngAfterViewInit() {
     Chart.register(...registerables);
 

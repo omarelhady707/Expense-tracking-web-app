@@ -1,64 +1,51 @@
 <section class="card flex-fill p-4 bg-dark text-white mb-4">
-  <div class="d-flex gap-3"> <!-- gap-3 يدي مسافة صغيرة بين المربعين -->
-    
-    <!-- المربع الأول -->
- <div class="card flex-fill p-3 bg-dark text-white">
-  <h5 class="mb-3 text-center">Account Summary</h5>
-  <dl class="row">
-    <dt class="col-sm-6">Account Number:</dt>
-    <dd class="col-sm-6">2456-9987-112</dd>
+  <div class="d-flex gap-3">
+    <div class="card flex-fill p-3 bg-dark text-white">
+      <h5 class="mb-3 text-center">Account Summary</h5>
+      <dl class="row">
+        <dt class="col-sm-6">Account Number:</dt>
+        <dd class="col-sm-6">2456-9987-112</dd>
+        <dt class="col-sm-6">Account Type:</dt>
+        <dd class="col-sm-6">Savings Account</dd>
+        <dt class="col-sm-6">Current Balance:</dt>
+        <dd class="col-sm-6">5,420.75 EGP</dd>
+        <dt class="col-sm-6">Saving Goals:</dt>
+        <dd class="col-sm-6">{{ lastGoal }}</dd>
+      </dl>
+    </div>
 
-    <dt class="col-sm-6">Account Type:</dt>
-    <dd class="col-sm-6">Savings Account</dd>
-
-    <dt class="col-sm-6">Current Balance:</dt>
-    <dd class="col-sm-6">5,420.75 EGP</dd>
-
-    <dt class="col-sm-6">Saving Goals:</dt>
-    <dd class="col-sm-6">Vacation</dd>
-  </dl>
-</div>
-
-
-    <!-- المربع الثاني -->
-  <div class="card flex-fill p-3 bg-dark text-white">
-  <h5 class="mb-3 text-center">Monthly Income & Expenses</h5>
-  <dl class="row">
-    <dt class="col-sm-6">Monthly Income:</dt>
-    <dd class="col-sm-6">5,420.75 EGP</dd>
-
-    <dt class="col-sm-6">Fixed Expenses:</dt>
-    <dd class="col-sm-6">1,200 EGP</dd>
-
-    <dt class="col-sm-6">Monthly Net:</dt>
-    <dd class="col-sm-6">1,000 EGP</dd>
-
-    <dt class="col-sm-6">Saving Rates:</dt>
-    <dd class="col-sm-6">35%</dd>
-  </dl>
-</div>
-
-
+    <div class="card flex-fill p-3 bg-dark text-white">
+      <h5 class="mb-3 text-center">Monthly Income & Expenses</h5>
+      <dl class="row">
+        <dt class="col-sm-6">Monthly Income:</dt>
+        <dd class="col-sm-6">5,420.75 EGP</dd>
+        <dt class="col-sm-6">Fixed Expenses:</dt>
+        <dd class="col-sm-6">1,200 EGP</dd>
+        <dt class="col-sm-6">Monthly Net:</dt>
+        <dd class="col-sm-6">1,000 EGP</dd>
+        <dt class="col-sm-6">Saving Rates:</dt>
+        <dd class="col-sm-6">35%</dd>
+      </dl>
+    </div>
   </div>
 </section>
+
 <section class="card flex-fill p-3 bg-dark text-white mb-4">
   <h5 class="mb-1">Quick Access</h5>
   <hr class="border-white">
 
   <div class="d-flex gap-2 justify-content-center">
-    <button type="button" class="btn btn-dark text-white flex-fill shadow">Budget Creation</button>
-    <button type="button" class="btn btn-dark text-white flex-fill shadow">Expense Tracking</button>
-    <button type="button" class="btn btn-dark text-white flex-fill shadow">Income Tracking</button>
-    <button type="button" class="btn btn-dark text-white flex-fill shadow">Goal Setting</button>
-    <button type="button" class="btn btn-dark text-white flex-fill shadow">Reporting</button>
+    <button type="button" class="btn btn-dark text-white flex-fill shadow" (click)="openBudgetModal()">Budget Creation</button>
+    <button type="button" class="btn btn-dark text-white flex-fill shadow" (click)="openExpenseModal()">Expense Tracking</button>
+    <button type="button" class="btn btn-dark text-white flex-fill shadow" (click)="openIncomeModal()">Income Tracking</button>
+    <button type="button" class="btn btn-dark text-white flex-fill shadow" (click)="openGoalModal()">Goal Setting</button>
+    <button type="button" class="btn btn-dark text-white flex-fill shadow" (click)="openReportModal()">Reporting</button>
   </div>
 </section>
 
-
 <section class="card p-3 bg-dark text-white">
   <h5 class="mb-3 text-white">Monthly Sales & Expenses</h5>
-
-  <div class="d-flex gap-3 ">
+  <div class="d-flex gap-3">
     <div class="card p-3 bg-dark text-white flex-fill">
       <canvas id="myBarChart1"></canvas>
     </div>
@@ -68,4 +55,152 @@
   </div>
 </section>
 
+<div *ngIf="showBudgetModal" class="modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div class="card p-4" style="width: 600px; background-color: #e0e0e0; color: black; border-radius: 15px;">
+    <h3 class="text-center mb-4" style="text-decoration: underline;">Budget Creation</h3>
+    <div class="mb-3 row">
+      <label class="col-sm-4 col-form-label fw-bold">Total Monthly Income :</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Enter amount ex: 5000" [(ngModel)]="budgetIncome">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label fw-bold">Category</label>
+        <select class="form-select" [(ngModel)]="budgetCategory">
+          <option value="Food">Food</option>
+          <option value="Rent">Rent</option>
+          <option value="Utilities">Utilities</option>
+        </select>
+        <button class="btn btn-info text-white mt-3 w-100 fw-bold">Add to Budget</button>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label fw-bold">Amount</label>
+        <input type="text" class="form-control" placeholder="Category Limit ex: 100" [(ngModel)]="budgetAmount">
+      </div>
+    </div>
+    <div class="d-flex justify-content-between mt-5">
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="closeBudgetModal()">Cancel</button>
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="saveBudget()">Save</button>
+    </div>
+  </div>
+</div>
 
+<div *ngIf="showExpenseModal" class="modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div class="card p-5" style="width: 700px; background-color: #e0e0e0; color: black; border-radius: 15px;">
+    <div class="row mb-3 align-items-center">
+      <label class="col-sm-3 col-form-label fw-bold">Add New Expense</label>
+      <div class="col-sm-4">
+        <select class="form-select" [(ngModel)]="expenseCategory">
+          <option value="Entertainment">Entertainment</option>
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+        </select>
+      </div>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" placeholder="Amount ex: 50" [(ngModel)]="expenseAmount">
+      </div>
+    </div>
+    <div class="row mb-3 justify-content-end">
+      <div class="col-sm-5">
+        <input type="date" class="form-control" [(ngModel)]="expenseDate">
+      </div>
+    </div>
+    <div class="text-center mb-3">
+      <button class="btn btn-info text-white fw-bold px-4" (click)="addExpense()">Add Expense</button>
+    </div>
+    <div class="text-center mb-5">
+       <input type="text" class="form-control" style="background-color: transparent; border: 2px solid grey;" disabled>
+    </div>
+    <div class="d-flex justify-content-start">
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="closeExpenseModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showIncomeModal" class="modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div class="card p-4" style="width: 800px; background-color: #e0e0e0; color: black; border-radius: 15px;">
+    
+    <h3 class="text-center mb-4" style="text-decoration: underline;">Income Sources</h3>
+
+    <div class="row mb-3 align-items-center">
+      <label class="col-auto col-form-label fw-bold">Income Source :</label>
+      <div class="col">
+        <input type="text" class="form-control" [(ngModel)]="newIncomeSource">
+      </div>
+      <label class="col-auto col-form-label fw-bold">Amount :</label>
+      <div class="col">
+        <input type="text" class="form-control" [(ngModel)]="newIncomeAmount">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-info text-white fw-bold" (click)="addIncomeItem()">Add Income Source</button>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="card p-2 mb-2" *ngFor="let item of incomeList; let i = index">
+        <div class="row align-items-center">
+          <label class="col-auto fw-bold">Income Source :</label>
+          <div class="col">
+            <input type="text" class="form-control" [value]="item.source" disabled>
+          </div>
+          <label class="col-auto fw-bold">Amount :</label>
+          <div class="col">
+            <input type="text" class="form-control" [value]="item.amount" disabled>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-info text-white btn-sm me-1">Edit</button>
+            <button class="btn btn-danger text-white btn-sm" (click)="deleteIncomeItem(i)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="closeIncomeModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showGoalModal" class="modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div class="card p-5" style="width: 600px; background-color: #f0f0f0; color: black; border-radius: 15px;">
+    
+    <h3 class="text-center mb-4" style="text-decoration: underline;">Set Saving Goal</h3>
+
+    <div class="mb-4">
+      <h5 class="fw-bold">Last Financial Goal : <span class="text-muted">{{ lastGoal }}</span></h5>
+    </div>
+
+    <div class="mb-5">
+      <h5 class="fw-bold mb-2">Set New Goal</h5>
+      <select class="form-select form-select-lg" [(ngModel)]="selectedGoal">
+        <option value="Vacation">Vacation</option>
+        <option value="New Car">New Car</option>
+        <option value="House Downpayment">House Downpayment</option>
+        <option value="Emergency Fund">Emergency Fund</option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="closeGoalModal()">Cancel</button>
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="saveGoal()">Save</button>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="showReportModal" class="modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div class="card p-4" style="width: 600px; background-color: #f0f0f0; color: black; border-radius: 15px;">
+    
+    <h3 class="text-center mb-4">Report</h3>
+
+    <div class="mb-4" style="background-color: #d3d3d3; height: 300px; border-radius: 10px;">
+      </div>
+
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="closeReportModal()">Cancel</button>
+      <button class="btn btn-info text-white px-4 fw-bold" (click)="printReport()">Print</button>
+    </div>
+
+  </div>
+</div>
