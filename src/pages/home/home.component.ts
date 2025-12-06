@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-
+import { Router } from '@angular/router'; //
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -34,6 +34,11 @@ export class HomeComponent implements AfterViewInit {
   lastGoal: string = 'Buy a Car'; // Example static data
   selectedGoal: string = 'Vacation';
   
+
+constructor(private router: Router) {}
+  logout() {
+  this.router.navigate(['login']); 
+  }
   openBudgetModal() {
     this.showBudgetModal = true;
   }

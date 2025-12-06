@@ -1,0 +1,41 @@
+<div class="signup-container">
+  <div class="form-side">
+    <h2 class="mb-1">Sign up</h2>
+    <p class="text-muted mb-4">Motivational Statement</p>
+
+    <div class="d-flex gap-2 mb-3">
+      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="firstName">
+      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="lastName">
+    </div>
+
+    <div class="mb-3">
+      <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email">
+    </div>
+
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Username" [(ngModel)]="username">
+    </div>
+
+    <div class="mb-3">
+      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
+    </div>
+
+    <div class="mb-4">
+      <input type="password" class="form-control" placeholder="Re-Type Password" [(ngModel)]="retypePassword">
+    </div>
+
+    <button class="btn btn-info text-white w-50 fw-bold mb-3 d-block mx-auto" (click)="onSignup()">Sign up ➜</button>
+
+    <div class="text-center">
+      <a routerLink="/login" class="text-info text-decoration-none">Already Have An Account ?</a>
+    </div>
+  </div>
+
+  <div class="illustration-side">
+    <div class="text-center text-white">
+      <h3>Start Financial planing now!
+      <br>💸
+      </h3>
+      </div>
+  </div>
+</div>

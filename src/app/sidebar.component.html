@@ -1,0 +1,33 @@
+<div class="sidebar bg-dark text-white p-4 d-flex flex-column">
+  
+  <div class="text-center">
+    <img src="assets/images/ashrafabdelbaqy.png" 
+         alt="User" 
+         class="rounded-circle shadow border border-2 border-secondary"
+         width="120" height="120">
+    <h5 class="mt-2 fw-bold">Omar Elhady</h5>
+  </div>
+
+  <ul class="nav flex-column fs-5 flex-grow-1 d-flex justify-content-evenly">
+    <li class="nav-item">
+      <a class="nav-link text-white d-flex align-items-center gap-2" routerLink="/home">
+        <i class="bi bi-house-door"></i> Home
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white d-flex align-items-center gap-2" routerLink="/profile">
+        <i class="bi bi-person-circle"></i> Profile
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white d-flex align-items-center gap-2" routerLink="/support">
+        <i class="bi bi-headset"></i> Support
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white d-flex align-items-center gap-2" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Log out
+      </a>
+    </li>
+  </ul>
+</div>

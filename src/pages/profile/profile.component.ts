@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'; // 1. Import Router
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
 
+  // 2. Inject Router
+  constructor(private router: Router) {}
+
+  // 3. Add Logout Logic
+  logout() {
+    this.router.navigate(['login']);
+  }
 }
